@@ -5,8 +5,8 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   secure: true,
   auth: {
-    user: "nikhilthadani112256@gmail.com",
-    pass: "rpkt warw huxm hymd",
+    user:  process.env.GMAIL_MAIL,
+    pass:  process.env.GMAIL_PASSWORD,
   },
 });
 
@@ -14,7 +14,7 @@ export const sendEmail = (emailId, otp) => {
   return new Promise((resolve, reject) => {
     transporter.sendMail(
       {
-        from: "nikhilthadani112256@gmail.com",
+        from:  process.env.GMAIL_MAIL,
         to: emailId,
         subject: "Your OTP To Login",
         text: `Your OTP is ${otp}.`,
