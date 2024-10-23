@@ -26,3 +26,5 @@ export const Tabs = {
   Activity: "Activity",
   Account: "Account",
 };
+
+export const DatabaseName = "splits.db";
