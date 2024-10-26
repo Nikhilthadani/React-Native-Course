@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useAuth } from "../../context/AuthProvider";
 
 const AccountDetails = () => {
+  const auth = useAuth();
+
   return (
     <View>
-      <Text>AccountDetails</Text>
+      <Text>{JSON.stringify(auth?.user)}</Text>
     </View>
   );
 };

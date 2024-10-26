@@ -1,12 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
+import LoginComponent from "../../components/auth/LoginComponent";
 
 const Login = () => {
-  return (
-    <View>
-      <Text>Login</Text>
-    </View>
-  );
+  return <LoginComponent />;
 };
 
 export default Login;

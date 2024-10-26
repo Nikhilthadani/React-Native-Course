@@ -6,8 +6,8 @@ import FriendStackNavigator from "./friends/stack-navigator";
 import ActivityNavigator from "./activity/stack-navigator";
 import AccountStackNavigator from "./account/stack-navigator";
 import Icon from "react-native-vector-icons/Feather";
-import AuthStackNavigator from "./account/stack-navigator";
 import { useAuth } from "../context/AuthProvider";
+import AuthStackNavigator from "./auth/stack-navigator";
 
 const Tab = createMaterialBottomTabNavigator();
 
