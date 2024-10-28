@@ -7,7 +7,7 @@ const GroupLayout = ({ children }) => {
     <View style={styles.container}>
       <GroupAppBar />
       <Text style={styles.text}>All Groups</Text>
-      <ScrollView style={styles.container}>{children}</ScrollView>
+      <View style={styles.container}>{children}</View>
     </View>
   );
 };
