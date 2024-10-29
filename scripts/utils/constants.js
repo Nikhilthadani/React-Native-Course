@@ -5,6 +5,7 @@ export const GroupScreens = {
   AddGroupMembers: "AddGroupMembers",
   GroupItemPersons: "GroupItemPersons",
   GroupItemMain: "GroupItemMain",
+  GroupAddExpense: "GroupAddExpense",
 };
 export const FriendsScreens = {
   AllFriends: "AllFriends",
