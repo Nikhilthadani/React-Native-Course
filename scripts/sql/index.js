@@ -1,7 +1,11 @@
 import Connection from "./connection";
 import { CreateActivitiesTable } from "./tables/activities";
+import { CreateExpenseSplitsTable } from "./tables/expense-splits";
+import { CreateExpensesTable } from "./tables/expenses";
+import { CreateFriendsTable } from "./tables/friends";
 import { CreateGroupsTable } from "./tables/group";
 import { CreateGroupMembersTable } from "./tables/group-members";
+import { CreatePaymentsTable } from "./tables/payments";
 import { SessionTable } from "./tables/session";
 import { alterTableUsers, tableDefUsers, UsersTable } from "./tables/users";
 
@@ -24,6 +28,10 @@ export const onInitDatabase = async () => {
     await db.execAsync(CreateGroupsTable);
     await db.execAsync(CreateGroupMembersTable);
     await db.execAsync(CreateActivitiesTable);
+    await db.execAsync(CreateExpensesTable);
+    await db.execAsync(CreateExpenseSplitsTable);
+    await db.execAsync(CreateFriendsTable);
+    await db.execAsync(CreatePaymentsTable);
     await getAllTables();
   } catch (error) {
     console.log("Error while initalizing Database Tables: ", error);

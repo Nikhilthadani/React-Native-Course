@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const GroupMembers = () => {
+const GroupItemMain = () => {
   return (
     <View>
-      <Text>Add Members</Text>
+      <Text>GroupItemMain</Text>
     </View>
   );
 };
 
-export default GroupMembers;
+export default GroupItemMain;
 
 const styles = StyleSheet.create({});
