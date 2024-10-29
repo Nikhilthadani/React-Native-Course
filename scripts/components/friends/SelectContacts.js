@@ -24,10 +24,11 @@ const getContactsPermission = async () => {
 
   return false;
 };
-const SelectContacts = () => {
+const SelectContacts = ({ selectedContacts, setSelectedContacts }) => {
   const [contacts, setContacts] = useState([]);
-  const [selectedContacts, setSelectedContacts] = useState([]);
   const onItemsChange = (data) => {
+    console.log("DATA", data);
+
     setSelectedContacts(data);
   };
   useEffect(() => {
@@ -37,10 +38,8 @@ const SelectContacts = () => {
       const contacts = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
       });
-      console.log(contacts.data);
       setContacts(contacts.data);
     }
-
     getContacts();
   }, []);
   return (

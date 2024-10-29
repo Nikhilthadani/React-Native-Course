@@ -9,11 +9,16 @@ import React from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { GroupScreens } from "../../utils/constants";
+import { useAppState } from "../../context/AppStateProvider";
 const GroupListRenderItem = ({ group }) => {
+  console.log("GROUP", group);
+
+  const { setSelectedGroup } = useAppState();
   const nav = useNavigation();
 
   const navigateToGroupScreen = () => {
-    nav.navigate(GroupScreens.GroupItem, { group });
+    setSelectedGroup({ id: group.id, name: group.group_name });
+    nav.navigate(GroupScreens.GroupItem);
   };
   return (
     <TouchableOpacity onPress={navigateToGroupScreen} style={styles.container}>

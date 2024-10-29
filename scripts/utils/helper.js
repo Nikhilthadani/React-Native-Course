@@ -9,3 +9,14 @@ export const isStringValid = (strs) => {
 
   return true;
 };
+export const getFormattedPhoneNumber = (number) => {
+  number = number.replace("+91", "");
+  let num = "";
+  for (const n of number) {
+    if (n === "(" || n === ")" || n === " " || n === "-") {
+      continue;
+    }
+    num = num + n;
+  }
+  return num;
+};

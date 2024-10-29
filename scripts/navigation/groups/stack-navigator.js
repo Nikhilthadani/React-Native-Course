@@ -39,7 +39,11 @@ const GroupStackNavigator = () => {
         name={GroupScreens.GroupItem}
         component={GroupItemNavigator}
       />
-      <Stack.Screen name={GroupScreens.GroupMembers} component={GroupMembers} />
+      <Stack.Screen
+        options={{ headerShown: true, headerShadowVisible: false }}
+        name={GroupScreens.AddGroupMembers}
+        component={GroupMembers}
+      />
     </Stack.Navigator>
   );
 };

@@ -6,6 +6,7 @@ import { SQLiteProvider } from "expo-sqlite";
 import { onErrorInitializingDatabase, onInitDatabase } from "./scripts/sql";
 import Fallback from "./scripts/screens/fallback/Fallback";
 import { DatabaseName } from "./scripts/utils/constants";
+import AppStateProvider from "./scripts/context/AppStateProvider";
 
 export default function App() {
   return (
@@ -18,7 +19,9 @@ export default function App() {
           onError={onErrorInitializingDatabase}
         >
           <AuthProvider>
-            <MainNavigator />
+            <AppStateProvider>
+              <MainNavigator />
+            </AppStateProvider>
           </AuthProvider>
         </SQLiteProvider>
       </React.Suspense>
