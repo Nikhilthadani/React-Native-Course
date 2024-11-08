@@ -5,6 +5,9 @@ import SplitByPercentage from "../../components/expense/SplitByPercentage";
 import { useAppState } from "../../context/AppStateProvider";
 import { getMembersOfGroup } from "../../sql/group-member/get";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ExpenseDetails from "../../components/expense/ExpenseDetails";
+import { addNewExpense } from "../../sql/expenses/add";
+import { useAuth } from "../../context/AuthProvider";
 
 const SplitType = { percentage: "percentage", equally: "equally" };
 
@@ -16,6 +19,9 @@ const GroupAddExpsne = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [splitType, setSetsplitType] = useState(SplitType.equally);
   const [expenseData, setExpenseData] = useState(null);
+  const {
+    user: { id },
+  } = useAuth();
 
   useLayoutEffect(() => {
     getMembersOfGroup(groupId)
@@ -29,6 +35,11 @@ const GroupAddExpsne = () => {
   };
   const splitEqually = () => {
     setSetsplitType(SplitType.equally);
+
+    const expData = {};
+    const shareEqual = 100 / users.length;
+    users.forEach((user) => (expData[`${user.id}`] = shareEqual));
+    setExpenseData(expData);
   };
 
   const onCloseModal = (data) => {
@@ -36,12 +47,14 @@ const GroupAddExpsne = () => {
     setModalVisible(false);
   };
 
-  const createSplitHandler = () => {
-    console.log("Splits Data: ", expenseData);
-    console.log(
-      "Users: ",
-      users.map((u) => u.name)
-    );
+  const createSplitHandler = async () => {
+    try {
+      await addNewExpense(expenseData, +expenseAmt, expenseDesc, +id, +groupId);
+      alert("Success");
+    } catch (error) {
+      console.log(error);
+      alert("Failed");
+    }
   };
 
   return (
@@ -89,6 +102,13 @@ const GroupAddExpsne = () => {
           />
         </View>
         <Button onPress={createSplitHandler}>Create Split</Button>
+        {expenseData && users && (
+          <ExpenseDetails
+            expenseData={expenseData}
+            totalAmount={expenseAmt}
+            users={users}
+          />
+        )}
       </View>
     </PaperProvider>
   );
