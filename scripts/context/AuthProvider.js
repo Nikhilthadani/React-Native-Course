@@ -103,9 +103,9 @@ const AuthProvider = ({ children }) => {
   };
   const logout = async () => {
     try {
-      await deleteSessions();
-      setUser(null);
       setIsLoggedIn(false);
+      setUser(null);
+      await deleteSessions();
     } catch (error) {
       console.log("Error while logging out, err=>", error);
       return;
