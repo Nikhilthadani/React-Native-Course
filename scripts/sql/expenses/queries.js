@@ -19,7 +19,7 @@ INNER JOIN payments p ON p.payer_id = es.user_id
 WHERE es.expense_id = ? AND p.expense_id = ?
 `;
 
-// splits
-// expense
-// payment
-// user
+export const UPDATE_EXPENSE_SETTLEMENT_STATEMENT = `UPDATE expenses 
+SET is_settled = 1 
+WHERE id = ?
+`;

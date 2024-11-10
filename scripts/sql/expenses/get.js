@@ -1,4 +1,5 @@
 import Connection from "../connection";
+import { GET_PAYMENT_STATUS_OF_EXPENSE_QUERY } from "../payments/queries";
 import {
   GET_EXPENSE_SPLITS_OF_EXPENSE,
   GET_EXPENSES_OF_A_GROUP,
@@ -31,6 +32,20 @@ export const getExpenseSplits = async (expenseId) => {
     return result;
   } catch (error) {
     console.log("Error occurred in getExpenseSplits: err=>", error);
+    throw error;
+  }
+};
+
+export const getPaymentStatusOfExpense = async (expenseId) => {
+  try {
+    const db = await Connection.getConnection();
+    const result = await db.getAllAsync(GET_PAYMENT_STATUS_OF_EXPENSE_QUERY, [
+      expenseId,
+    ]);
+    console.log("PAYMENTS ", expenseId, JSON.stringify(result));
+    return result;
+  } catch (error) {
+    console.log("Error occurred in getPaymentStatusOfExpense: err=>", error);
     throw error;
   }
 };

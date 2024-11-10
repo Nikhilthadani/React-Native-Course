@@ -6,12 +6,22 @@ import { getExpenseSplits } from "../../sql/expenses/get";
 import { PaymentStatus } from "../../utils/constants";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useAuth } from "../../context/AuthProvider";
+import { updatePaymentRecord } from "../../sql/payments/update";
 
 const RenderItem = ({ data, expense, userId }) => {
   const isUserDuePending = () => {
     if (data.user_id === userId && data.status === PaymentStatus.PENDING)
       return true;
     return false;
+  };
+  const settleUserDues = async () => {
+    try {
+      await updatePaymentRecord(expense.id, userId);
+      alert("SUCCESS");
+    } catch (error) {
+      alert("ERROR");
+      console.log(error);
+    }
   };
   return (
     <View
@@ -42,14 +52,17 @@ const RenderItem = ({ data, expense, userId }) => {
           gap: 5,
         }}
       >
-        <Icon color="#0B132B" size={20} style={{}} name={"hourglass"} />
+        <Icon
+          color="#0B132B"
+          size={20}
+          style={{}}
+          name={
+            data.status === PaymentStatus.PENDING ? "hourglass" : "check-circle"
+          }
+        />
       </View>
       {isUserDuePending() && (
-        <Button
-          onPress={() => alert("SETTLE AMOUNT")}
-          mode="elevated"
-          textColor="black"
-        >
+        <Button onPress={settleUserDues} mode="elevated" textColor="black">
           Settle
         </Button>
       )}
