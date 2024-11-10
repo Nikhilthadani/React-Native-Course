@@ -49,7 +49,7 @@ export const registerUsersUnOffical = async (contactIds) => {
     if (!contact) {
       return;
     }
-    alert("HEREEEEEEEEEEEEEEE");
+
     let user = await isUserAlreadyExistsInDatabase(contact.phone);
     console.log("USER>>>", user);
 
