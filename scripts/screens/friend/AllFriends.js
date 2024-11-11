@@ -5,6 +5,8 @@ import { getFriendsOfUser } from "../../sql/friends/get";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigation } from "@react-navigation/native";
 import { FriendsScreens } from "../../utils/constants";
+import { FlatList } from "react-native-gesture-handler";
+import FriendsList from "../../components/friends/FriendsList";
 
 const AllFriends = () => {
   const nav = useNavigation();
@@ -13,9 +15,7 @@ const AllFriends = () => {
   } = useAuth();
   const [loading, setLoading] = useState(true);
   const [friends, setFriends] = useState([]);
-  const navigateToAddExpense = () => {
-    nav.navigate(FriendsScreens.FriendAddExpense);
-  };
+  const navigateToAddExpense = () => {};
   useLayoutEffect(() => {
     getFriendsOfUser(id)
       .then(setFriends)
@@ -31,8 +31,7 @@ const AllFriends = () => {
     <ActivityIndicator />
   ) : (
     <View style={{ flex: 1 }}>
-      <Text>AllFriends</Text>
-      <Text>{JSON.stringify(friends)}</Text>
+      <FriendsList friends={friends} />
       <Button
         onPress={navigateToAddFriendScreen}
         style={{ width: 200, borderRadius: 10, marginHorizontal: "auto" }}

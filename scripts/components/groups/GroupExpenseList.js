@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Chip, Icon } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { GroupScreens } from "../../utils/constants";
+import { FriendsScreens, GroupScreens } from "../../utils/constants";
 const monthNames = [
   "Jan",
   "Feb",
@@ -24,10 +24,15 @@ const monthNames = [
   "Nov",
   "Dec",
 ];
-const RenderItem = ({ data, expenses }) => {
+const RenderItem = ({ data, expenses, isFriend }) => {
   const nav = useNavigation();
   const onExpenseClick = () => {
-    nav.navigate(GroupScreens.GroupExpenseItem, { expense: data });
+    nav.navigate(
+      isFriend
+        ? FriendsScreens.FriendExpenseItem
+        : GroupScreens.GroupExpenseItem,
+      { expense: data }
+    );
   };
   return (
     <TouchableOpacity
@@ -85,7 +90,7 @@ const RenderItem = ({ data, expenses }) => {
     </TouchableOpacity>
   );
 };
-const GroupExpenseList = ({ expenses }) => {
+const GroupExpenseList = ({ expenses, isFriend }) => {
   return (
     <View style={{ marginTop: 40 }}>
       <Text style={{ fontWeight: "500", fontSize: 20, padding: 10 }}>
@@ -94,7 +99,11 @@ const GroupExpenseList = ({ expenses }) => {
       <FlatList
         data={expenses}
         renderItem={(info) => (
-          <RenderItem data={info.item} expenses={expenses} />
+          <RenderItem
+            data={info.item}
+            expenses={expenses}
+            isFriend={isFriend}
+          />
         )}
       />
     </View>

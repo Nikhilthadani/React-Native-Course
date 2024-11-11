@@ -12,6 +12,8 @@ export const FriendsScreens = {
   AllFriends: "AllFriends",
   AddFriend: "AddFriend",
   FriendPage: "FriendPage",
+  FriendAddExpense: "FriendAddExpense",
+  FriendExpenseItem: "FriendExpenseItem",
 };
 export const ActivityScreen = {
   AllActivities: "AllActivities",
