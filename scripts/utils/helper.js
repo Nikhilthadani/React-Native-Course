@@ -20,3 +20,17 @@ export const getFormattedPhoneNumber = (number) => {
   }
   return num;
 };
+
+export const activityTextGenerator = (
+  expenseFor,
+  expenseId,
+  amount,
+  groupId,
+  userIds
+) => {
+  if (expenseFor === "group") {
+    return `Expense with id ${expenseId} added in group id ${groupId}. Amount ${amount}`;
+  } else {
+    return `Expense with id ${expenseId} is shared with user ids ${userIds[0]} and ${userIds[1]}. Amount ${amount}`;
+  }
+};

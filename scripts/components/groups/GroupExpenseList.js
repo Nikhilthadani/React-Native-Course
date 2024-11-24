@@ -42,10 +42,10 @@ const RenderItem = ({ data, expenses, isFriend }) => {
         alignItems: "center",
         backgroundColor: "#1e2420",
         width: Dimensions.get("window").width - 20,
-        marginHorizontal: "auto",
         borderRadius: 15,
         padding: 20,
         gap: 2,
+        margin: 10,
       }}
     >
       <View
@@ -97,6 +97,7 @@ const GroupExpenseList = ({ expenses, isFriend }) => {
         Splits
       </Text>
       <FlatList
+        keyExtractor={(item) => `${item.id + item.expense_id}`}
         data={expenses}
         renderItem={(info) => (
           <RenderItem

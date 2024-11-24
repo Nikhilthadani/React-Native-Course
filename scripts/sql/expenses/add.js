@@ -1,5 +1,9 @@
 import { PaymentStatus } from "../../utils/constants";
-import { addNewActivity } from "../activity/add";
+import { activityTextGenerator } from "../../utils/helper";
+import {
+  addNewActivitiesForIndividuals,
+  addNewActivity,
+} from "../activity/add";
 import Connection from "../connection";
 import { addNewPaymentRecord } from "../payments/add";
 import {
@@ -46,9 +50,8 @@ export const addNewExpense = async (
   loggedInUserId,
   groupId = null
 ) => {
+  const db = await Connection.getConnection();
   try {
-    const db = await Connection.getConnection();
-
     db.execAsync("BEGIN");
     console.log("Transaction start!");
 
@@ -60,9 +63,25 @@ export const addNewExpense = async (
       groupId
     );
     console.log("Expense Record Created With ID ", expense);
-    const activityTextMainuser = `Added New Expense in Group Id ${groupId} with Payment of ${amount}`;
 
-    await addNewActivity(db, activityTextMainuser, loggedInUserId);
+    const activityText = activityTextGenerator(
+      !groupId ? "individual" : "group",
+      expense,
+      amount,
+      groupId,
+      Object.keys(expenseData)
+    );
+
+    if (groupId) {
+      await addNewActivity(db, activityText, loggedInUserId);
+    } else {
+      await addNewActivitiesForIndividuals(
+        db,
+        activityText,
+        Object.keys(expenseData)
+      );
+    }
+
     const userIds = Object.keys(expenseData).filter(
       (uid) => +uid !== loggedInUserId
     );

@@ -29,7 +29,6 @@ const GroupItemMain = () => {
     <ActivityIndicator size={30} style={{ margin: "auto" }} />
   ) : (
     <View style={styles.container}>
-      <Text>GroupItemMain</Text>
       <GroupExpenseList expenses={expenses} />
       <FAB
         onPress={navigateToGroupExpense}

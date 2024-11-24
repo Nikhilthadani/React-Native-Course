@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import { getGroupsOfUser } from "../../sql/group-member/get";
 import GroupListRenderItem from "./GroupListRenderItem";
+import { useNavigation } from "@react-navigation/native";
 
 const GroupList = () => {
+  const nav = useNavigation();
+
   const [groups, setGroups] = useState([]);
   const {
     user: { id },
@@ -13,6 +16,12 @@ const GroupList = () => {
     getGroupsOfUser(+id)
       .then(setGroups)
       .catch((err) => console.log(err));
+
+    nav.addListener("focus", () => {
+      getGroupsOfUser(+id)
+        .then(setGroups)
+        .catch((err) => console.log(err));
+    });
   }, []);
   return (
     groups.length > 0 && (

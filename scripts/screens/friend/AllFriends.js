@@ -15,7 +15,7 @@ const AllFriends = () => {
   } = useAuth();
   const [loading, setLoading] = useState(true);
   const [friends, setFriends] = useState([]);
-  const navigateToAddExpense = () => {};
+
   useLayoutEffect(() => {
     getFriendsOfUser(id)
       .then(setFriends)
@@ -23,6 +23,15 @@ const AllFriends = () => {
         setLoading(false);
       })
       .catch((err) => console.log(err));
+
+    nav.addListener("focus", () => {
+      getFriendsOfUser(id)
+        .then(setFriends)
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    });
   }, []);
   const navigateToAddFriendScreen = () => [
     nav.navigate(FriendsScreens.AddFriend),
@@ -39,18 +48,8 @@ const AllFriends = () => {
       >
         Add More Friends
       </Button>
-      <FAB
-        onPress={navigateToAddExpense}
-        style={styles.fab}
-        label="Add Expense"
-        icon={"wallet-plus-outline"}
-      />
     </View>
   );
 };
 
 export default AllFriends;
-
-const styles = StyleSheet.create({
-  fab: { position: "absolute", bottom: 15, right: 5 },
-});
